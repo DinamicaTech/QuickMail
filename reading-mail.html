@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading Mail - QuickMail User Guide</title>
+  <style>
+  body { max-width: 860px; margin: 0 auto; padding: 1rem 2rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #222; }
+  h1 { border-bottom: 2px solid #ddd; padding-bottom: 0.3em; }
+  h2 { border-bottom: 1px solid #eee; padding-bottom: 0.2em; margin-top: 2em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+  th, td { border: 1px solid #ccc; padding: 0.5rem 0.75rem; text-align: left; }
+  th { background: #f5f5f5; font-weight: 600; }
+  code { background: #f0f0f0; padding: 0.15em 0.35em; border-radius: 3px; font-size: 0.88em; font-family: "Cascadia Code", "Consolas", monospace; }
+  pre { background: #f0f0f0; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  a { color: #0969da; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 2rem 0; }
+  blockquote { border-left: 3px solid #ddd; margin-left: 0; padding-left: 1rem; color: #555; }
+  .nav { margin-bottom: 2em; padding-bottom: 0.75em; border-bottom: 1px solid #ddd; font-size: 0.9em; }
+  .nav a { margin-right: 1em; color: #0969da; text-decoration: none; }
+  .nav a:hover { text-decoration: underline; }
+  .version { color: #666; font-size: 0.85em; margin-top: -1em; margin-bottom: 2em; }
+</style>
+
+</head>
+<body>
+  <div class="nav"><a href="index.html">Contents</a> | <a href="full.html">Single Page</a> | <a href="main-window.html">Previous: Main Window</a> | <a href="composing-mail.html">Next: Composing Mail</a></div>
+  <h1 id="reading-mail">Reading Mail</h1>
+<h3 id="opening-a-message">Opening a Message</h3>
+<p>Press Enter on a message in the list to open it in the reading pane
+(or in a new tab or window, depending on your <strong>Reading
+Mode</strong> setting in <strong>Settings → General</strong>).</p>
+<p>Press <strong>Ctrl+Enter</strong> to open a message in a new tab
+regardless of the Reading Mode setting.</p>
+<h3 id="reading-pane">Reading Pane</h3>
+<p>The reading pane renders HTML messages with WebView2. Links open in
+your default browser.</p>
+<p>Images from remote sources are not loaded — fetching them tells the
+sender your address is live, which is what a tracking pixel in a
+newsletter is for. Where the sender wrote a description for a picture,
+QuickMail shows that description in its place, so a picture that is also
+a link reads by what it is (“Facebook link”) rather than by its web
+address. A picture the sender marked as decorative contributes nothing,
+which is what marking it that way asks for.</p>
+<p>Press <strong>F6</strong> or <strong>Shift+F6</strong> to move
+between the reading pane and other panes.</p>
+<h3 id="plain-text-view">Plain Text View</h3>
+<p>Toggle a sticky preference to read all messages as plain text instead
+of HTML. When on, QuickMail renders each message from its original
+plain-text part (or from text extracted from the HTML if the sender
+included no plain-text part). This gives a cleaner, low-noise read —
+useful when you want a simpler layout, or when you want to inspect a
+suspicious message’s raw text.</p>
+<p>Toggle plain text view three ways:</p>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Command Palette</strong></td>
+<td>Press <code>Ctrl+Shift+P</code>, type “Toggle Plain Text View”,
+press Enter</td>
+</tr>
+<tr class="even">
+<td><strong>View menu</strong></td>
+<td>Open the <strong>View</strong> menu and activate the <strong>Plain
+Text View</strong> item (a checkable toggle)</td>
+</tr>
+<tr class="odd">
+<td><strong>Keyboard shortcut</strong></td>
+<td>Press <strong>Ctrl+Shift+H</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Settings</strong></td>
+<td>Open Settings (Ctrl+,), navigate to the General tab, and check
+<strong>Read messages as plain text</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The setting persists across app restarts and applies to the reading
+pane, message tabs, and standalone message windows. When a message has
+no plain-text part, QuickMail shows a note before the extracted text:
+“This message has no plain-text version; showing text extracted from the
+HTML.”</p>
+<h3 id="message-windows">Message Windows</h3>
+<p>When Reading Mode is set to <strong>Window</strong>, messages open in
+a separate window. Each window has a full menu bar (<strong>File,
+Message, Navigate</strong>), a toolbar, and a command palette. Shortcuts
+work the same as in the main window:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Ctrl+R</code></td>
+<td>Reply</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+Shift+R</code></td>
+<td>Reply All</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl+F</code></td>
+<td>Forward</td>
+</tr>
+<tr class="even">
+<td><code>Delete</code></td>
+<td>Delete</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl+Shift+M</code></td>
+<td>Move to Archive</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+Q</code></td>
+<td>Mark as Read</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl+Shift+G</code></td>
+<td>Grab Addresses</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+Shift+W</code></td>
+<td>Watch or unwatch this message’s conversation</td>
+</tr>
+<tr class="odd">
+<td><code>Alt+A</code></td>
+<td>Focus the attachment list</td>
+</tr>
+</tbody>
+</table>
+<p>Deleting a message from its window closes the window and returns
+focus to the originating position in the message list.</p>
+<h3 id="attachments-on-a-received-message">Attachments on a Received
+Message</h3>
+<p>When a message has attachments, they appear in an <strong>attachments
+list</strong> just below the header fields (Subject, From, To, Date).
+This works the same way in all three reading modes — reading pane, tab,
+and window.</p>
+<p>Reach the attachment list in either of two ways:</p>
+<ul>
+<li>Press <strong>Alt+A</strong> to jump straight to it from anywhere in
+the open message. If the message has no attachments, QuickMail announces
+“No attachments.”</li>
+<li>Press <strong>Shift+Tab</strong> from the message body to step back
+into the header area; when the message has attachments, focus lands on
+the attachment list.</li>
+</ul>
+<p>Once focus is on the list, arrow between attachments and use:</p>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Enter</code></td>
+<td>Open the selected attachment</td>
+</tr>
+<tr class="even">
+<td><code>Alt+Enter</code></td>
+<td>Show the attachment’s properties</td>
+</tr>
+<tr class="odd">
+<td><code>Shift+F10</code> (or the Menu key)</td>
+<td>Open the context menu: <strong>Save…</strong>, <strong>Save
+All…</strong>, <strong>Open</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="message-properties">Message Properties</h3>
+<p>Press <strong>Alt+Enter</strong> on any message to open a properties
+window showing sender, recipients, date, size, and flags.</p>
+<h3 id="marking-as-read">Marking as Read</h3>
+<p>Press <code>Ctrl+Q</code> to mark the selected message or messages as
+read. Messages are also marked read automatically when you open them
+(configurable in <strong>Settings → General</strong>).</p>
+<h3 id="deleting-messages">Deleting Messages</h3>
+<p>Press <strong>Delete</strong>. Deleted messages go to Trash. Press
+<code>Ctrl+Shift+E</code> to empty the Trash for the selected
+account.</p>
+<h3 id="archiving-messages">Archiving Messages</h3>
+<p>Press <strong>Ctrl+Shift+M</strong> to archive the selected message —
+move it to your account’s Archive folder instead of deleting it. Use
+this for mail you want out of your inbox but want to keep.
+<strong>Delete</strong> is unchanged and still moves messages to
+Trash.</p>
+<p>The command is named <strong>Move to Archive</strong> — it is on the
+message menu and the message context menu (Shift+F10), and in the
+command palette. Archiving works from every view. In the
+<strong>From</strong>, <strong>To</strong>, and
+<strong>Conversations</strong> groupings, archiving a group moves the
+whole group at once, the same way Delete does. The
+<strong>Ctrl+Shift+M</strong> shortcut can be changed in <strong>File →
+Settings → Keyboard Shortcuts</strong>.</p>
+<p><strong>Each account archives to its own folder</strong> — there is
+no single shared Archive folder. QuickMail uses the folder your provider
+marks as the Archive folder automatically, so most accounts need no
+setup. To choose a different folder, select a folder in the folder tree,
+open its context menu (Shift+F10), and choose <strong>Set as Archive
+Folder</strong>; choose <strong>Use Automatic Archive Folder</strong> to
+return to the automatic one.</p>
+<p>Gmail has no dedicated Archive folder, so pick one for the account.
+The recommended choice is a label of your own: create a Gmail label
+named <strong>Archive</strong>, then select it in the folder tree and
+choose <strong>Set as Archive Folder</strong>. Archiving a message moves
+it out of the inbox and onto that label — which is what archiving means
+in Gmail — and it gives you a folder that holds only what you
+archived.</p>
+<p>Setting <strong>[Gmail]/All Mail</strong> as the Archive folder also
+works and archives correctly, but that folder holds your entire mailbox,
+not just archived mail. Prefer a label unless you specifically want All
+Mail.</p>
+<p>If an account has no Archive folder and you have not set one,
+QuickMail tells you rather than doing nothing.</p>
+<p><strong>All Archive</strong> in the folder tree gathers every
+account’s archived mail into one list, alongside All Inboxes, All
+Drafts, All Sent, and All Trash. It follows each account’s own archive
+setting — including a folder you chose with <strong>Set as Archive
+Folder</strong> — so it shows exactly the mail <strong>Move to
+Archive</strong> put there. Accounts with no Archive folder simply
+contribute nothing. This is the other reason to prefer a Gmail label
+over <strong>[Gmail]/All Mail</strong>: an account pointed at All Mail
+contributes its entire mailbox to All Archive, because for that account
+All Mail <em>is</em> the archive.</p>
+<h3 id="tabs">Tabs</h3>
+<p>QuickMail can open messages in tabs, keeping multiple messages
+visible at once.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Ctrl+Tab</code></td>
+<td>Next tab</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+Shift+Tab</code></td>
+<td>Previous tab</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl+W</code></td>
+<td>Close tab</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+Shift+``</code></td>
+<td>Tab list (navigate by name)</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl+Shift+T</code></td>
+<td>Focus tab strip</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+  <div class="nav"><a href="index.html">Contents</a> | <a href="full.html">Single Page</a> | <a href="main-window.html">Previous: Main Window</a> | <a href="composing-mail.html">Next: Composing Mail</a></div>
+</body>
+</html>

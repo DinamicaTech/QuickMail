@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>How to Get GitHub Release Download Numbers</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+    body { max-width: 860px; margin: 0 auto; padding: 1rem 2rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #222; }
+    h1 { border-bottom: 2px solid #ddd; padding-bottom: 0.3em; }
+    h2 { border-bottom: 1px solid #eee; padding-bottom: 0.2em; margin-top: 2em; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem 0.75rem; text-align: left; }
+    th { background: #f5f5f5; font-weight: 600; }
+    code { background: #f0f0f0; padding: 0.15em 0.35em; border-radius: 3px; font-size: 0.88em; font-family: "Cascadia Code", "Consolas", monospace; }
+    pre { background: #f0f0f0; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+    pre code { background: none; padding: 0; }
+    a { color: #0969da; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 2rem 0; }
+    blockquote { border-left: 3px solid #ddd; margin-left: 0; padding-left: 1rem; color: #555; }
+    .nav { margin-bottom: 2em; padding-bottom: 0.75em; border-bottom: 1px solid #ddd; font-size: 0.9em; }
+    .nav a { margin-right: 1em; color: #0969da; text-decoration: none; }
+    .nav a:hover { text-decoration: underline; }
+    .version { color: #666; font-size: 0.85em; margin-top: -1em; margin-bottom: 2em; }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">How to Get GitHub Release Download Numbers</h1>
+</header>
+<h1
+id="how-to-get-github-release-download-numbers-and-what-they-actually-mean">How
+to Get GitHub Release Download Numbers — and What They Actually
+Mean</h1>
+<p>GitHub counts every download of every file you attach to a release.
+It shows you none of it in the web interface, and it barely documents
+that the data exists.</p>
+<p>This is a practical guide to getting those numbers out, and — the
+part almost nobody writes about — how to read them without fooling
+yourself.</p>
+<hr />
+<h2 id="first-what-github-officially-publishes">First: what GitHub
+officially publishes</h2>
+<p>Almost nothing.</p>
+<p>There used to be a dedicated help article, “Getting the download
+count for your releases.” It now exists only in the archived Enterprise
+Server 2.16 docs, a version <a
+href="https://docs.github.com/en/enterprise/2.16/user/github/administering-a-repository/getting-the-download-count-for-your-releases">discontinued
+on 2020-01-22</a>. It has not been carried forward into the current
+documentation.</p>
+<p>What remains today is:</p>
+<ul>
+<li>One sentence in <a
+href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">About
+releases</a>: “You can also use the Releases API to gather information,
+such as the number of times people download a release asset.” No
+instructions follow.</li>
+<li>In the <a
+href="https://docs.github.com/en/rest/releases/assets">REST API
+reference for release assets</a>, the field is listed as
+<code>download_count</code>: required, integer. That is the entire
+description. Nothing about what it counts, how it is calculated, or
+whether history is available.</li>
+</ul>
+<p>So the data is real and supported, but you are on your own for both
+the how and the interpretation.</p>
+<hr />
+<h2 id="getting-the-numbers">Getting the numbers</h2>
+<h3 id="the-zero-effort-way-a-browser">The zero-effort way: a
+browser</h3>
+<p>Public repositories need no authentication. Open this and read the
+JSON:</p>
+<pre><code>https://api.github.com/repos/OWNER/REPO/releases</code></pre>
+<p>Each release has an <code>assets</code> array, and each asset has
+<code>name</code> and <code>download_count</code>. Fine for a quick
+look, unwieldy past one release.</p>
+<h3 id="the-practical-way-the-gh-cli">The practical way: the
+<code>gh</code> CLI</h3>
+<p>If you have the <a href="https://cli.github.com/">GitHub CLI</a>
+installed and authenticated, this prints every release with every asset
+and its count:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> api repos/OWNER/REPO/releases <span class="at">--paginate</span> <span class="at">-q</span> <span class="st">&#39;.[] | &quot;\(.tag_name)\t&quot; + ([.assets[] | &quot;\(.name)=\(.download_count)&quot;] | join(&quot;  &quot;))&#39;</span></span></code></pre></div>
+<p>Just the latest release:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> api repos/OWNER/REPO/releases/latest <span class="at">-q</span> <span class="st">&#39;.assets[] | &quot;\(.download_count)\t\(.name)&quot;&#39;</span></span></code></pre></div>
+<p>A lifetime total across every release:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> api repos/OWNER/REPO/releases <span class="at">--paginate</span> <span class="at">-q</span> <span class="st">&#39;[.[].assets[].download_count] | add&#39;</span></span></code></pre></div>
+<p><code>--paginate</code> matters. Without it you get the first 30
+releases and a quietly incomplete total.</p>
+<h3 id="with-curl-instead">With <code>curl</code> instead</h3>
+<p>If you do not have <code>gh</code>, <code>curl</code> fetches exactly
+the same JSON:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> https://api.github.com/repos/OWNER/REPO/releases</span></code></pre></div>
+<p>Add <code>-H "Authorization: Bearer $TOKEN"</code> for private
+repositories, or to lift the unauthenticated rate limit (60 requests per
+hour, versus 5,000 authenticated).</p>
+<p>That hands you the raw JSON to read or feed into whatever you already
+use. The <code>gh</code> examples above are easier where you have it,
+because <code>-q</code> does the filtering for you and returns finished
+lines rather than a wall of JSON.</p>
+<h3 id="with-a-gui">With a GUI</h3>
+<p>If you would rather read this in a window than a terminal, <a
+href="https://github.com/kellylford/GHManage">GHManage</a> is a
+keyboard-driven, screen-reader-friendly desktop app for browsing GitHub
+repositories. Its Releases view shows a downloads column per release and
+a repo-wide total in the status bar; pressing Enter on a release drills
+into its individual files, ordered most-downloaded first, and the
+details panel breaks a release down file by file without leaving the
+list.</p>
+<p>Download it from the <a
+href="https://github.com/kellylford/GHManage/releases/tag/v0.2.1">v0.2.1
+release</a> (a standalone <code>.exe</code>, no install required — it
+needs the <code>gh</code> CLI authenticated), or read the source at <a
+href="https://github.com/kellylford/GHManage">github.com/kellylford/GHManage</a>.
+Every number in the case study below was read out of it.</p>
+<hr />
+<h2 id="now-the-part-that-matters-reading-them-honestly">Now the part
+that matters: reading them honestly</h2>
+<p>Getting the number is five minutes. Not misreading it is the whole
+job.</p>
+<h3 id="a-download-is-an-http-request-not-a-person">A download is an
+HTTP request, not a person</h3>
+<p><code>download_count</code> increments when someone fetches the file.
+It does not deduplicate by user, by IP, or by anything else. One person
+downloading twice counts twice. A CI job pulling your installer on every
+build counts every time. Nothing in the number is a human being.</p>
+<h3 id="it-is-a-lifetime-running-total-and-there-is-no-history">It is a
+lifetime running total, and there is no history</h3>
+<p>The count is cumulative from the moment the asset was uploaded. There
+is no date breakdown, no “last 30 days,” and <strong>no API that offers
+one</strong>. If you want downloads over time, you have to record the
+numbers yourself on a schedule and diff them. Nobody can retroactively
+give you last month.</p>
+<p>A minimal snapshot, run from a scheduled task or cron:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> api repos/OWNER/REPO/releases <span class="at">--paginate</span> <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-q</span> <span class="st">&#39;.[] | .tag_name as $t | .assets[] | [$t, .name, .download_count] | @tsv&#39;</span> <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">sed</span> <span class="st">&quot;s/^/</span><span class="va">$(</span><span class="fu">date</span> <span class="at">-u</span> +%Y-%m-%d<span class="va">)</span><span class="st">\t/&quot;</span> <span class="op">&gt;&gt;</span> downloads-history.tsv</span></code></pre></div>
+<p>PowerShell equivalent:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">$stamp</span> <span class="op">=</span> <span class="op">(</span><span class="fu">Get-Date</span> <span class="op">-</span>Format <span class="st">&#39;yyyy-MM-dd&#39;</span><span class="op">)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gh api repos<span class="op">/</span>OWNER<span class="op">/</span>REPO<span class="op">/</span>releases <span class="op">--</span>paginate <span class="op">-</span>q <span class="st">&#39;.[] | .tag_name as $t | .assets[] | [$t, .name, .download_count] | @tsv&#39;</span> <span class="op">|</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ForEach-Object</span> <span class="op">{</span> <span class="st">&quot;$stamp</span><span class="ch">`t</span><span class="st">$_&quot;</span> <span class="op">}</span> <span class="op">|</span> <span class="fu">Add-Content</span> downloads<span class="op">-</span>history<span class="op">.</span><span class="fu">tsv</span></span></code></pre></div>
+<p>Both end their filter with <code>@tsv</code>, which emits the fields
+tab-separated, rather than assembling the line by hand. That is
+deliberate. On Windows, PowerShell strips the double quotes out of an
+argument on its way to a native executable, so a filter written the
+natural way — <code>"\($t)\t\(.name)"</code> — reaches <code>gh</code>
+with its quotes gone and fails with <code>unexpected token "\"</code>.
+<code>@tsv</code> has no quotes to lose, so the identical command works
+in both shells.</p>
+<p>Start this today even if you have no use for it yet. The data does
+not exist until you begin collecting it, and the day you want a trend is
+always after the day you should have started.</p>
+<h3
+id="different-files-are-different-populations-do-not-average-them">Different
+files are different populations — do not average them</h3>
+<p>This is the mistake that produces wrong conclusions, and it is easy
+to make.</p>
+<p>If your release contains an installer, an auto-updater package, and a
+portable build, those three numbers describe three different groups of
+people:</p>
+<ul>
+<li><strong>Installer</strong> — someone acquiring the software. New
+users, reinstalls, and people who update by reinstalling.</li>
+<li><strong>Updater packages</strong> (<code>.nupkg</code>, delta
+packages, patch bundles) — an <strong>already installed copy updating
+itself</strong>. Only a running install ever fetches these.</li>
+<li><strong>Portable build</strong> — someone who wants no installer,
+and who will never auto-update.</li>
+</ul>
+<p>They add up. They do not overlap, and no single one of them is “the”
+number.</p>
+<h3 id="your-best-retention-signal-is-the-updater-package">Your best
+retention signal is the updater package</h3>
+<p>If you ship an auto-updater, its package download count is the most
+honest number you have. An installer download tells you someone took a
+copy. An <strong>updater</strong> download tells you a copy was still
+installed and still running when you shipped the next version. That is
+retention, measured directly.</p>
+<p>Watch it across consecutive releases. The full worked example is
+below.</p>
+<p>Treat the updater figure as a <strong>floor</strong>, not a total.
+Portable users and people who reinstall manually never appear in it.</p>
+<h3
+id="uneven-counts-mean-real-clients-uniform-counts-mean-scraping">Uneven
+counts mean real clients; uniform counts mean scraping</h3>
+<p>A useful heuristic. If a bot is crawling your release page and
+grabbing everything, all your assets show roughly the same count. Real
+users produce a jagged profile, because each one fetches exactly the
+file they need.</p>
+<p>Uniformity across every asset is the warning sign. Apply the same
+suspicion to spikes: a release that scores five or ten times its
+neighbours, with nothing in its content to explain it, is far more
+likely to be automated traffic than a sudden burst of humans.</p>
+<h3 id="look-for-a-number-that-counts-people-not-requests">Look for a
+number that counts people, not requests</h3>
+<p>Before you build any conclusion on download counts, check whether
+your project already produces a number <strong>tied to an
+identity</strong> — an OAuth grant, a licence activation, an account
+registration, a sync service seeing a login. Anything a person has to
+complete a real action to trigger.</p>
+<p>Such a number is worth more than your entire release history, because
+it counts people instead of HTTP requests. It deduplicates. Bots do not
+appear in it. If you have one and are still reasoning from downloads,
+you are working from your weakest data. The case study below turns on
+exactly this — the most informative figure in it is not a download count
+at all.</p>
+<h3 id="things-that-quietly-are-not-counted">Things that quietly are not
+counted</h3>
+<ul>
+<li><strong>Source code archives are invisible.</strong> The
+auto-generated “Source code (zip)” and “(tar.gz)” links on every release
+are <strong>not</strong> assets, do not appear in the
+<code>assets</code> array, and have no <code>download_count</code>. Only
+files you explicitly attached are counted.</li>
+<li><strong>Clones and <code>git</code> traffic are not
+downloads.</strong> Those live in a completely separate place —
+repository Insights → Traffic — which only retains 14 days and requires
+push access.</li>
+<li><strong>A re-uploaded file starts over.</strong> The count belongs
+to the asset, not the filename. Delete an asset and upload a replacement
+and you have a new asset with a fresh count of zero. The old number is
+gone.</li>
+</ul>
+<h3 id="two-things-that-surprise-people">Two things that surprise
+people</h3>
+<ul>
+<li><strong>Draft releases accumulate downloads.</strong> A draft is not
+public, but its assets still record fetches by anyone with repository
+access. If you see counts on an unpublished release, that is your own
+team and your testers.</li>
+<li><strong>Forks start at zero.</strong> Download counts are per
+repository and are not inherited. A fork of a popular project shows
+nothing until it publishes its own releases with its own assets.</li>
+</ul>
+<hr />
+<h2 id="a-worked-example-with-real-numbers">A worked example, with real
+numbers</h2>
+<p>Abstract advice is easy to nod along to and hard to apply, so here is
+an entire repository’s history with nothing withheld.</p>
+<p><a href="https://github.com/kellylford/QuickMail">QuickMail</a> is a
+keyboard and screen reader friendly email client for Windows. It is a
+personal project still under active development, and promotion so far
+has been light — some Mastodon and mailing list posts, and a mention in
+a few newsletters. There has been no concerted promotional effort,
+deliberately, while the software is still being built. These are all of
+its numbers as of 29 July 2026.</p>
+<h3 id="what-its-releases-contain">What its releases contain</h3>
+<p>Understanding the files is a prerequisite for reading the counts, and
+this is true of any project — you cannot interpret a number until you
+know which population produces it.</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Who fetches it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>QuickMail-win.msi</code> / <code>-setup.exe</code></td>
+<td>A person installing it. New users, reinstalls, manual updaters.</td>
+</tr>
+<tr class="even">
+<td><code>QuickMail.exe</code></td>
+<td>A person who wants the portable build and no installer. Never
+auto-updates.</td>
+</tr>
+<tr class="odd">
+<td><code>QuickMail-&lt;v&gt;-delta.nupkg</code></td>
+<td>An <strong>installed, running</strong> copy patching itself from the
+previous version.</td>
+</tr>
+<tr class="even">
+<td><code>QuickMail-&lt;v&gt;-full.nupkg</code></td>
+<td>The same updater, taking the whole package because a delta would not
+apply.</td>
+</tr>
+<tr class="odd">
+<td><code>releases.win.json</code></td>
+<td>The updater checking whether a new version exists.</td>
+</tr>
+<tr class="even">
+<td><code>RELEASES</code>, <code>assets.win.json</code></td>
+<td>Legacy or unused feed metadata.</td>
+</tr>
+</tbody>
+</table>
+<p>The last three are machine traffic by definition. The updater arrived
+in v0.8.0 on 8 July 2026; before that there was no auto-update at all,
+which is why the nupkg columns are empty earlier in the history.</p>
+<h3 id="the-whole-history">The whole history</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Release</th>
+<th>Date</th>
+<th style="text-align: right;">Installer</th>
+<th style="text-align: right;">Portable</th>
+<th style="text-align: right;">Delta</th>
+<th style="text-align: right;">Full</th>
+<th style="text-align: right;">Feed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>v0.8.36</td>
+<td>07-24</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;"><strong>18</strong></td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">110</td>
+</tr>
+<tr class="even">
+<td>v0.8.35</td>
+<td>07-23</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;"><strong>14</strong></td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">172</td>
+</tr>
+<tr class="odd">
+<td>v0.8.34</td>
+<td>07-22</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;"><strong>13</strong></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">256</td>
+</tr>
+<tr class="even">
+<td>v0.8.33</td>
+<td>07-20</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;"><strong>13</strong></td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">331</td>
+</tr>
+<tr class="odd">
+<td>v0.8.32</td>
+<td>07-15</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;"><strong>11</strong></td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">476</td>
+</tr>
+<tr class="even">
+<td>v0.8.31</td>
+<td>07-14</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;"><strong>11</strong></td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">516</td>
+</tr>
+<tr class="odd">
+<td>v0.8.3</td>
+<td>07-13</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;"><strong>9</strong></td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">565</td>
+</tr>
+<tr class="even">
+<td>v0.8.2</td>
+<td>07-12</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;"><strong>9</strong></td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">640</td>
+</tr>
+<tr class="odd">
+<td>v0.8.1</td>
+<td>07-09</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">712</td>
+</tr>
+<tr class="even">
+<td>v0.8.0</td>
+<td>07-08</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">744</td>
+</tr>
+<tr class="odd">
+<td>v0.7.9.1</td>
+<td>07-03</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="even">
+<td>v0.7.4</td>
+<td>06-17</td>
+<td style="text-align: right;"><strong>234</strong></td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="odd">
+<td>v0.7.2</td>
+<td>06-12</td>
+<td style="text-align: right;"><strong>258</strong></td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="even">
+<td>v0.6.6</td>
+<td>05-28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>164</strong></td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="odd">
+<td>v0.5.1</td>
+<td>05-12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>149</strong></td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="even">
+<td><em>(29 more)</em></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td><strong>Lifetime</strong></td>
+<td></td>
+<td style="text-align: right;"><strong>1,091</strong></td>
+<td style="text-align: right;"><strong>771</strong></td>
+<td style="text-align: right;"><strong>98</strong></td>
+<td style="text-align: right;"><strong>83</strong></td>
+<td style="text-align: right;"><strong>4,522</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Lifetime downloads across every asset of every release:
+<strong>6,571</strong>. Lifetime downloads of things a human would
+deliberately choose — installers and the portable build —
+<strong>1,862</strong>.</p>
+<h3 id="reading-it">Reading it</h3>
+<p><strong>1,862 is not a user count, and neither is 6,571.</strong> The
+larger figure is mostly the updater talking to itself. The smaller one
+counts acquisitions over three months, including bots, repeat downloads,
+and everyone who tried it once and deleted it.</p>
+<p><strong>The delta column is the honest one.</strong> Look at it in
+isolation: 9, 9, 11, 11, 13, 13, 14, 18. Eight consecutive releases,
+each number earned only by a copy of QuickMail that was still installed
+and still running when the next version shipped. It is not noisy, it
+does not spike, and it grows slowly. That is the same group of people
+showing up again and again.</p>
+<p>Compare the installer column over exactly the same releases: 10, 8,
+5, 16, 15, 37, 9, 27. Same period, triple the volatility, and measuring
+something else entirely — arrival, not retention.</p>
+<p><strong>So how many people actively update QuickMail?</strong> The
+defensible answer is <strong>roughly 15 to 20</strong>, with a plausible
+ceiling around 30 to 35. Hold that number lightly — a second, better
+data point further down revises the picture considerably.</p>
+<p>The reasoning, in full:</p>
+<ul>
+<li><strong>18</strong> installs auto-updated into the most recent
+release. That is a hard floor — each one is a running installation.</li>
+<li>Add the <strong>12</strong> that took the full package instead. Some
+of those are the same kind of user on a machine where the delta failed;
+some skipped a version. Call the updating population <strong>20 to
+30</strong>.</li>
+<li>Portable users are <strong>invisible</strong> to this. They never
+auto-update, so they never appear in any nupkg count. Roughly 11 people
+took the portable build of the latest release, but there is no way to
+know how many still run it.</li>
+<li>Anyone who updates by re-running the installer is invisible too,
+mixed indistinguishably into the installer column with genuinely new
+users.</li>
+<li>The feed count of 110 is <strong>not</strong> 110 people. It is
+cumulative update checks. QuickMail checks at startup, so one install
+contributes seven by being opened once a day for a week — and
+contributes exactly the same seven if one person quits and relaunches it
+seven times in a single afternoon. The number rises with <strong>how
+often the program is started</strong>, which is a measure of habit, not
+of headcount.</li>
+</ul>
+<p><strong>Two spikes do not belong.</strong> v0.7.2 at 258 and v0.7.4
+at 234 sit among neighbours in the 30 to 40 range, with nothing in
+either release to explain a sevenfold jump. The same shape appears in
+the portable column at v0.6.6 (164) and v0.5.1 (149). These are almost
+certainly automated. Excluding them removes roughly 800 from the
+lifetime total — which is to say, <strong>nearly half of that 1,862 is
+probably not human at all.</strong></p>
+<p><strong>One thing I genuinely cannot explain.</strong> The feed
+column declines steadily as releases get newer — 744 at v0.8.0 down to
+110 at v0.8.36. Older releases have had longer to accumulate checks,
+which accounts for some of it, but not cleanly. I do not know exactly
+how the updater distributes those requests across releases, and rather
+than invent a mechanism I will say so. It is a reminder that not every
+number in this data has a confident interpretation, and the temptation
+to supply one is exactly the failure mode this article is about.</p>
+<h3
+id="the-best-number-came-from-outside-the-download-data-entirely">The
+best number came from outside the download data entirely</h3>
+<p>Everything above is derived from download counts, and download counts
+can never identify a person. But QuickMail has a second signal that can,
+and it is worth more than the whole table.</p>
+<p>Google caps an <strong>unverified</strong> application at <strong>100
+users</strong>. QuickMail requests Gmail scopes, which Google classes as
+restricted, so until the app passes verification — a process that runs
+weeks and can require a paid third-party security assessment — only 100
+accounts may ever authorise it. QuickMail <strong>hit that cap.</strong>
+New users now get “This app has been blocked,” which is why Gmail
+sign-in became opt-in and app passwords became the default route.</p>
+<p>That is a fundamentally better measurement than anything downloads
+produce, because it is <strong>bound to identity</strong>. Each of those
+authorisations is a distinct Google account belonging to a distinct
+person who installed the software, opened it, reached the account setup,
+and completed a sign-in. No bot does that. No duplicate counts
+twice.</p>
+<p>So: <strong>at least 100 different people got QuickMail working with
+Gmail</strong> — against the 18 the delta count could see.</p>
+<p><strong>How can both be true?</strong> Because they answer different
+questions. And the gap has a specific, checkable explanation:
+<strong>auto-update did not exist until v0.8.0 on 8 July 2026.</strong>
+Roughly thirty releases shipped before it, from v0.5.0 in May onwards,
+with no updater at all. Every one of those users had to notice a new
+version and manually download it.</p>
+<p>Anyone who installed during that period and stopped manually updating
+is <strong>still running that old build today, and is invisible to every
+signal in the table above</strong> — permanently. They will never fetch
+a delta package, because their copy has no idea deltas exist. The
+pre-updater installer numbers were not small either: 57, 43, 40, 34, 32
+across those releases.</p>
+<p>That reframes the whole reading. The honest summary is now three
+numbers, not one:</p>
+<ul>
+<li><strong>~18</strong> installs are actively auto-updating and
+current.</li>
+<li><strong>≥100</strong> distinct people authorised Gmail at some
+point.</li>
+<li><strong>Unknown, possibly large</strong> — people stranded on a
+pre-auto-update build who are still using it and cannot be counted by
+any means available.</li>
+</ul>
+<p><strong>The general lesson, which is the reason this section
+exists:</strong> before drawing conclusions from download counts, look
+for a number somewhere else that is <strong>tied to an
+identity</strong>. An OAuth grant, a licence activation, an account
+registration, a sync endpoint. One of those is worth more than the
+entire release history, because it counts people rather than HTTP
+requests. If you have one and are still reasoning from downloads, you
+are using your weakest data.</p>
+<p>The caveats stay honest, though. That 100 is <strong>cumulative, not
+current</strong> — it includes the developer’s own test accounts, and
+everyone who authorised once and abandoned it. It counts only Gmail
+users, so anyone on Outlook, iCloud, or a plain IMAP server is outside
+it entirely. And a cap tells you the number was <em>reached</em>, not by
+how much it was exceeded — demand above 100 is simply invisible, since
+Google turns it away at the door.</p>
+<h3 id="what-the-numbers-do-and-do-not-say">What the numbers do and do
+not say</h3>
+<p>They say roughly 15 to 20 people keep an up-to-date copy running, at
+least 100 have used it, and an uncounted group sits on old builds in
+between.</p>
+<p>They do <strong>not</strong> say the software is good or bad.
+QuickMail has had little promotion — a few Mastodon and mailing list
+posts and some newsletter mentions, with no concerted effort while it is
+still under development — and a project promoted that lightly gets a
+number like this regardless of quality. For contrast, a comparable
+Windows accessibility project in the same niche recorded roughly 3,000
+downloads in two months, with an organisation behind it and a 36-episode
+onboarding podcast, which is a marketing budget wearing a disguise.
+Nothing in either dataset speaks to which program is better. They
+measure reach, and reach is mostly a function of effort spent on
+reach.</p>
+<p>And they never, under any circumstance, distinguish a person who
+downloaded and still uses it from a person who downloaded and deleted it
+ten minutes later. Downloads measure acquisition. Only an updater
+measures retention, and only approximately.</p>
+<p>That is the whole point of publishing these figures rather than a
+tidy hypothetical. Small numbers are the normal case for independent
+software, they are worth reading accurately, and reading them accurately
+is more useful than either inflating them or being embarrassed by
+them.</p>
+<hr />
+<h2 id="the-one-line-summary">The one-line summary</h2>
+<p>The numbers are easy to get and easy to misread. Pull them per asset
+rather than per release, remember that each file describes a different
+group of people, treat your updater’s package count as your only real
+retention signal, and start snapshotting today — because GitHub keeps no
+history, and the trend you will eventually want can only be built
+forward from now.</p>
+<p>And before you conclude anything from them, look for a number
+elsewhere that is tied to an identity. If you have one, it outranks
+everything here.</p>
+<hr />
+<p><em>Sources: <a
+href="https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases">About
+releases</a> · <a
+href="https://docs.github.com/en/rest/releases/assets">REST API
+endpoints for release assets</a> · <a
+href="https://docs.github.com/en/rest/releases/releases">REST API
+endpoints for releases</a> · <a
+href="https://docs.github.com/en/enterprise/2.16/user/github/administering-a-repository/getting-the-download-count-for-your-releases">the
+retired Enterprise 2.16 article</a></em></p>
+<hr />
+<h2 id="reporting-issues">Reporting Issues</h2>
+<p>Have a question about this article, a correction to it, or a problem
+with QuickMail itself? There are three ways to reach us — pick the one
+that fits:</p>
+<ol type="1">
+<li><strong>Report a Bug → Send</strong> (Help menu, inside QuickMail).
+Files the report for you anonymously — it includes no email address or
+other identifying information, so there is no way to follow up with you.
+<strong>Best when you don’t want any follow-up.</strong></li>
+<li><strong>Report a Bug → Copy report and open GitHub</strong> (Help
+menu). Opens a pre-filled issue that you submit under your own GitHub
+account, so your GitHub contact information is attached. <strong>Best
+when you have a GitHub account and want automatic filing plus direct
+contact.</strong></li>
+<li><strong>Email</strong> <a
+href="mailto:quickmailissues@theideaplace.net">quickmailissues@theideaplace.net</a>.
+<strong>Best when you don’t mind sending email and want a personal
+follow-up.</strong></li>
+</ol>
+<p>Full details, including exactly what a report contains (and what it
+never contains), are in the <a
+href="https://kellylford.github.io/QuickMail/reporting-issues.html">Reporting
+Issues section of the User Guide</a>.</p>
+</body>
+</html>

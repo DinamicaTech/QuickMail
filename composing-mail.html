@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Composing Mail - QuickMail User Guide</title>
+  <style>
+  body { max-width: 860px; margin: 0 auto; padding: 1rem 2rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #222; }
+  h1 { border-bottom: 2px solid #ddd; padding-bottom: 0.3em; }
+  h2 { border-bottom: 1px solid #eee; padding-bottom: 0.2em; margin-top: 2em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+  th, td { border: 1px solid #ccc; padding: 0.5rem 0.75rem; text-align: left; }
+  th { background: #f5f5f5; font-weight: 600; }
+  code { background: #f0f0f0; padding: 0.15em 0.35em; border-radius: 3px; font-size: 0.88em; font-family: "Cascadia Code", "Consolas", monospace; }
+  pre { background: #f0f0f0; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  a { color: #0969da; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 2rem 0; }
+  blockquote { border-left: 3px solid #ddd; margin-left: 0; padding-left: 1rem; color: #555; }
+  .nav { margin-bottom: 2em; padding-bottom: 0.75em; border-bottom: 1px solid #ddd; font-size: 0.9em; }
+  .nav a { margin-right: 1em; color: #0969da; text-decoration: none; }
+  .nav a:hover { text-decoration: underline; }
+  .version { color: #666; font-size: 0.85em; margin-top: -1em; margin-bottom: 2em; }
+</style>
+
+</head>
+<body>
+  <div class="nav"><a href="index.html">Contents</a> | <a href="full.html">Single Page</a> | <a href="reading-mail.html">Previous: Reading Mail</a> | <a href="address-book.html">Next: Address Book</a></div>
+  <h1 id="composing-mail">Composing Mail</h1>
+<h3 id="opening-a-compose-window">Opening a Compose Window</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Ctrl+N</code></td>
+<td>New message</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+R</code></td>
+<td>Reply</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl+Shift+R</code></td>
+<td>Reply All</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+F</code></td>
+<td>Forward</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compose-panes">Compose Panes</h3>
+<p>Press <strong>F6</strong> to cycle between the address fields (To,
+Cc, Bcc), the subject, and the message body. You can also jump directly
+to a field:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Destination</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Alt+U</code></td>
+<td>Subject field</td>
+</tr>
+<tr class="even">
+<td><code>Alt+M</code></td>
+<td>From account</td>
+</tr>
+<tr class="odd">
+<td><code>Alt+Y</code></td>
+<td>Message body</td>
+</tr>
+</tbody>
+</table>
+<h3 id="choosing-which-account-sends">Choosing Which Account Sends</h3>
+<p>Press <strong>Alt+M</strong> to reach the <strong>From</strong> list,
+then arrow to the account you want. Press <strong>Enter</strong> and
+QuickMail confirms your choice — “IdeaPlace used as From address”. You
+can also expand the list with <strong>Alt+Down Arrow</strong>, arrow to
+an account, and press Enter; the same confirmation follows.</p>
+<p>Arrowing past accounts does not announce anything extra, since your
+screen reader is already reading each account name as you go. The
+confirmation comes when the choice settles — on Enter, when the expanded
+list closes on a different account, or when you leave the From field
+having changed it. It uses the <strong>Announce action results</strong>
+setting, so turning that off turns this off with it.</p>
+<p>Enter in the From list never sends the message. Sending is
+<strong>Alt+S</strong> or <strong>Ctrl+Enter</strong>.</p>
+<h3 id="address-autocomplete">Address Autocomplete</h3>
+<p>Start typing a name or address in To, Cc, or Bcc. QuickMail searches
+your address book and recent contacts. Arrow down to choose a
+suggestion; press Enter or Tab to accept. Press Escape to dismiss
+without accepting.</p>
+<h3 id="editing-modes">Editing Modes</h3>
+<p>Every compose window offers three modes, switchable at any time with
+<code>Ctrl+Shift+1/2/3</code> or the <strong>View</strong> menu:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Plain Text</td>
+<td><code>Ctrl+Shift+1</code></td>
+<td>Unformatted text</td>
+</tr>
+<tr class="even">
+<td>Markdown</td>
+<td><code>Ctrl+Shift+2</code></td>
+<td>Write Markdown; sent as formatted HTML</td>
+</tr>
+<tr class="odd">
+<td>HTML</td>
+<td><code>Ctrl+Shift+3</code></td>
+<td>Rich text editor with real formatting</td>
+</tr>
+</tbody>
+</table>
+<p>Switching from a rich mode to Plain Text asks for confirmation
+because formatting would be lost.</p>
+<p>Messages composed in Markdown or HTML are sent with both an HTML part
+and a plain text part.</p>
+<h3 id="formatting-markdown-and-html-modes">Formatting (Markdown and
+HTML Modes)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Shortcut</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bold</td>
+<td><code>Ctrl+B</code></td>
+</tr>
+<tr class="even">
+<td>Italic</td>
+<td><code>Ctrl+I</code></td>
+</tr>
+<tr class="odd">
+<td>Underline (HTML only)</td>
+<td><code>Ctrl+U</code></td>
+</tr>
+<tr class="even">
+<td>Strikethrough</td>
+<td><code>Ctrl+Shift+X</code></td>
+</tr>
+<tr class="odd">
+<td>Heading 1 / 2 / 3</td>
+<td><code>Ctrl+Alt+1</code> / <code>Ctrl+Alt+2</code> /
+<code>Ctrl+Alt+3</code></td>
+</tr>
+<tr class="even">
+<td>Bullet list</td>
+<td><code>Ctrl+Shift+L</code></td>
+</tr>
+<tr class="odd">
+<td>Numbered list</td>
+<td><code>Ctrl+Shift+N</code></td>
+</tr>
+<tr class="even">
+<td>Insert link</td>
+<td><code>Ctrl+L</code></td>
+</tr>
+<tr class="odd">
+<td>Clear formatting</td>
+<td><code>Ctrl+Space</code></td>
+</tr>
+<tr class="even">
+<td>Announce formatting at cursor</td>
+<td><code>Ctrl+T</code></td>
+</tr>
+<tr class="odd">
+<td>Show formatting in browsable list</td>
+<td><code>Ctrl+Shift+T</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nested lists:</strong> In a list, press <strong>Tab</strong>
+to indent an item (creating a sub-list); press
+<strong>Shift+Tab</strong> to dedent.</p>
+<h3 id="checking-formatting-html-mode">Checking Formatting (HTML
+Mode)</h3>
+<ul>
+<li><strong><code>Ctrl+T</code></strong> — announces a one-line summary:
+“Heading 2. Bold on, Italic off, Underline off.”</li>
+<li><strong><code>Ctrl+Shift+T</code></strong> — opens a small window
+listing the same details one per row. Arrow through them; press Escape
+or Enter to close.</li>
+</ul>
+<h3 id="preview-markdown-and-html-modes">Preview (Markdown and HTML
+Modes)</h3>
+<p>Press <strong>F8</strong> to open a rendered preview in a separate
+window. The preview is fully focusable, so you can browse the formatted
+output exactly as a recipient would. Links open in your default browser.
+Press <strong>Escape</strong> or <strong>Ctrl+W</strong> to close the
+preview.</p>
+<h3 id="check-spelling-full-dialog">Check Spelling (Full Dialog)</h3>
+<p>Press <strong>F7</strong> (or choose <strong>Tools → Check
+Spelling</strong>) to review the whole message in the classic spelling
+dialog. The check covers the message body first, then the subject line,
+and finishes with a confirmation that reports how many words were
+changed.</p>
+<p>For each word that is not in the dictionary, the Spelling window
+shows the word in the line where it appears, a list of suggestions, and
+a “Change to” box pre-filled with the top suggestion. A screen reader
+announces “Not in dictionary:” followed by the word, and focus lands on
+the suggestions list with the first suggestion selected so it is spoken
+automatically. Arrow through the list to hear other choices — the
+highlighted suggestion fills the Change to box — or type your own
+correction.</p>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Alt+C</code> or <code>Enter</code></td>
+<td>Change — replace the word with the Change to text</td>
+</tr>
+<tr class="even">
+<td><code>Alt+L</code></td>
+<td>Change All — also fix every later occurrence this session</td>
+</tr>
+<tr class="odd">
+<td><code>Alt+I</code></td>
+<td>Ignore this occurrence</td>
+</tr>
+<tr class="even">
+<td><code>Alt+G</code></td>
+<td>Ignore All — skip this word for the rest of the check</td>
+</tr>
+<tr class="odd">
+<td><code>Alt+A</code></td>
+<td>Add to Dictionary — never flag this word again</td>
+</tr>
+<tr class="even">
+<td><code>Alt+R</code></td>
+<td>Read the line containing the word</td>
+</tr>
+<tr class="odd">
+<td><code>Alt+T</code> / <code>Alt+S</code> / <code>Alt+N</code></td>
+<td>Move to the Change to box / Suggestions list / context</td>
+</tr>
+<tr class="even">
+<td><code>F6</code> / <code>Shift+F6</code></td>
+<td>Cycle between the context, suggestions, and buttons</td>
+</tr>
+<tr class="odd">
+<td><code>Escape</code></td>
+<td>Close the dialog and return to the message</td>
+</tr>
+</tbody>
+</table>
+<p>Words you add to the dictionary are stored in <code>custom.lex</code>
+in your QuickMail profile folder and apply everywhere spell checking
+runs, permanently. To remove a word, edit that file in a text editor
+while QuickMail is closed (one word per line). Ignore All lasts only for
+the current check.</p>
+<p>The message stays visible and editable behind the Spelling window,
+with the current word selected, so you can always see the correction in
+place.</p>
+<h3 id="inline-spell-check">Inline Spell Check</h3>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Ctrl+F7</code></td>
+<td>Jump to next misspelling</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl+Shift+F7</code></td>
+<td>Jump to previous misspelling</td>
+</tr>
+<tr class="odd">
+<td><code>Alt+1</code> / <code>Alt+2</code> / <code>Alt+3</code></td>
+<td>Accept first / second / third spelling suggestion</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Changed keys:</strong> inline navigation was previously
+<code>F7</code> / <code>Shift+F7</code>. <code>F7</code> now opens the
+Check Spelling dialog, matching the binding word processors have used
+for decades. If you had customized these shortcuts, your bindings are
+unchanged; to restore the old behavior, reassign them in the keyboard
+customizations dialog.</p>
+</blockquote>
+<p>Inline navigation wraps around the message so it always finds
+misspellings wherever the cursor starts.</p>
+<p>When a screen reader is active, QuickMail announces each misspelling
+along with up to three suggestions. By default, each suggestion is
+numbered — for example: “Misspelling: teh. 1: the, 2: then, 3: them.”
+Press <code>Alt+1</code>, <code>Alt+2</code>, or <code>Alt+3</code> to
+replace the misspelled word with that numbered suggestion without
+leaving the compose area.</p>
+<p>Control announcement behavior in <strong>File → Settings → General →
+Screen Reader Announcements</strong>:</p>
+<ul>
+<li><strong>Announce spelling suggestions</strong> — turn off to hear
+only the misspelled word without suggestions.</li>
+<li><strong>Spelling Suggestions Verbosity</strong> — choose
+<strong>Numbers with suggestions</strong> (default) to hear “1: the, 2:
+then” so <code>Alt+1/2/3</code> maps directly to what is spoken, or
+<strong>Just suggestions</strong> to hear “the, then, them” without
+numbers.</li>
+</ul>
+<h3 id="attachments">Attachments</h3>
+<p>Attach files with <code>Ctrl+Shift+A</code> in the compose window, by
+pasting files from the clipboard (<code>Ctrl+V</code>), or by dragging
+and dropping them onto the window. A screen reader announces how many
+files were attached.</p>
+<p>Press <strong>Alt+A</strong> to move focus to the list of files
+already attached — the same key that reaches the attachment list of a
+message you are reading. Arrow through the list and press
+<strong>Delete</strong> to remove the selected file. If the message has
+nothing attached yet, QuickMail announces “No attachments.”</p>
+<h3 id="message-templates">Message Templates</h3>
+<p>Save a message you write often — a standard reply, a form response —
+as a reusable template.</p>
+<ul>
+<li><strong>Save as Template</strong> (command palette) saves the
+current subject and body as a new template, titled from the subject line
+(or “Untitled” if the subject is empty).</li>
+<li><strong>Insert Template…</strong> (command palette) opens a
+search-and-select picker: type to filter by title, arrow to a template,
+and press <strong>Insert</strong> or Enter to add its subject (if the
+Subject field is empty) and body into the message you are
+composing.</li>
+</ul>
+<p>Templates can include <code>{sender}</code>, <code>{date}</code>, and
+<code>{time}</code> placeholders, which are replaced with your display
+name and today’s date and time when the template is inserted. Templates
+are plain text; in HTML mode, only the text is inserted.</p>
+<h3 id="checking-addresses">Checking Addresses</h3>
+<p>Press <code>Ctrl+K</code> to check every address in the To, Cc, and
+Bcc fields. QuickMail looks up any bare name against your address book —
+if exactly one contact matches, it fills in that contact’s address
+automatically. Addresses that are not valid and cannot be resolved are
+flagged as invalid. A screen reader announces how many addresses were
+resolved and how many are invalid.</p>
+<h3 id="sending">Sending</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Alt+S</code> or <code>Ctrl+Enter</code></td>
+<td>Send</td>
+</tr>
+</tbody>
+</table>
+<h3 id="auto-save-drafts">Auto-Save Drafts</h3>
+<p>QuickMail saves your compose as a draft automatically every 2 minutes
+(on by default). A quiet status line in the compose window shows
+“Auto-saved 3:42 PM” after each save — no announcement interrupts your
+writing. If a save fails, it is announced once. You can check the last
+auto-save time from the command palette: <strong>Ctrl+Shift+P → Announce
+Last Auto-Save</strong>.</p>
+<p>Control auto-save in <strong>Settings → General → Composing</strong>:
+turn it off, change the interval (30 seconds to 10 minutes), and set the
+default compose mode for new messages.</p>
+<h3 id="forwarding-with-attachments">Forwarding with Attachments</h3>
+<p>When forwarding a message that has attachments, QuickMail opens an
+<strong>Include Attachments</strong> dialog before downloading. All
+attachments are checked by default. Arrow between files and press Space
+to toggle individual ones. Press Tab to reach Forward (include checked
+files) or Cancel.</p>
+<hr />
+
+  <div class="nav"><a href="index.html">Contents</a> | <a href="full.html">Single Page</a> | <a href="reading-mail.html">Previous: Reading Mail</a> | <a href="address-book.html">Next: Address Book</a></div>
+</body>
+</html>
